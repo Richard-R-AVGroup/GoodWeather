@@ -19,6 +19,9 @@ public class GoodWeatherApplication extends Application {
 
     public static void main(String[] args) {
 
+        //CurrentWeather weather = new CurrentWeather();
+        //System.out.println(weather.toString());
+
         try {
             WeatherAPIUtility.getLocalWeatherFromAPI();
         } catch (IOException e) {

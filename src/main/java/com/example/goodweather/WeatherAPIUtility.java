@@ -1,10 +1,14 @@
 package com.example.goodweather;
 
+import com.google.gson.Gson;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class WeatherAPIUtility {
 
@@ -15,7 +19,12 @@ public class WeatherAPIUtility {
                 .header("X-RapidAPI-Host", "aerisweather1.p.rapidapi.com")
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
-        HttpResponse<String> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofString());
+        HttpResponse<Path> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofFile(Paths.get("currentWeather.json")));
         System.out.println(response.body());
+    }
+
+    public static void readLocalWeatherFromFile()
+    {
+        Gson gson = new Gson();
     }
 }
