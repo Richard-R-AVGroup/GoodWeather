@@ -7,4 +7,6 @@ module com.example.goodweather {
 
     opens com.example.goodweather to javafx.fxml, com.google.gson;
     exports com.example.goodweather;
+    exports com.example.goodweather.weatherclass;
+    opens com.example.goodweather.weatherclass to com.google.gson, javafx.fxml;
 }

@@ -1,5 +1,7 @@
 package com.example.goodweather;
 
+import com.example.goodweather.weatherclass.Location;
+import com.example.goodweather.weatherclass.Place;
 import com.google.gson.annotations.SerializedName;
 
 public class CurrentWeather {
@@ -7,14 +9,8 @@ public class CurrentWeather {
     //Location
     @SerializedName("loc")
     Location location;
-    @SerializedName("name")
-    String station;
-    @SerializedName("city")
-    String nearestCity;
-    @SerializedName("state")
-    String stateOrProvince;
-    @SerializedName("country")
-    String country;
+    @SerializedName("place")
+    Place place;
 
     //Weather
     @SerializedName("tempC")
@@ -22,21 +18,6 @@ public class CurrentWeather {
     @SerializedName("feelslikeC")
     int feelsLike;
 
-    public String getStation() {
-        return station;
-    }
-
-    public String getNearestCity() {
-        return nearestCity;
-    }
-
-    public String getStateOrProvince() {
-        return stateOrProvince;
-    }
-
-    public String getCountry() {
-        return country;
-    }
 
     public int getTempC() {
         return tempC;
@@ -49,8 +30,10 @@ public class CurrentWeather {
     @Override
     public String toString()
     {
-      return location.toString();
-//                "CurrentWeather:\n" +
+      return "CurrentWeather:\n\n" +
+                "Location = " + location.toString() + "\n" +
+                "Place: \n" + place.toString();
+//
 //                "station = " + station + '\n' +
 //                "nearestCity = " + nearestCity + '\n' +
 //                "stateOrProvince = " + stateOrProvince + '\n' +
