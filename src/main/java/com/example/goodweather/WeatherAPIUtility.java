@@ -1,7 +1,9 @@
 package com.example.goodweather;
 
 import com.google.gson.Gson;
+import com.google.gson.stream.JsonReader;
 
+import java.io.FileReader;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -23,8 +25,23 @@ public class WeatherAPIUtility {
         System.out.println(response.body());
     }
 
-    public static void readLocalWeatherFromFile()
+    public static APIResponse readLocalWeatherFromFile()
     {
         Gson gson = new Gson();
+        APIResponse apiResponse = null;
+
+        try (
+                FileReader fileReader = new FileReader("currentWeather.json");
+                JsonReader jsonReader = new JsonReader(fileReader);
+                )
+        {
+            apiResponse = gson.fromJson(jsonReader, APIResponse.class);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+        return apiResponse;
     }
 }

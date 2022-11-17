@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class CurrentWeather {
 
     //Location
+    @SerializedName("loc")
+    Location location;
     @SerializedName("name")
     String station;
     @SerializedName("city")
@@ -47,12 +49,13 @@ public class CurrentWeather {
     @Override
     public String toString()
     {
-        return "CurrentWeather:\n" +
-                "station = " + station + '\n' +
-                "nearestCity = " + nearestCity + '\n' +
-                "stateOrProvince = " + stateOrProvince + '\n' +
-                "country = " + country + '\n' +
-                "tempC = " + tempC + '\n' +
-                "feelsLike = " + feelsLike;
+      return location.toString();
+//                "CurrentWeather:\n" +
+//                "station = " + station + '\n' +
+//                "nearestCity = " + nearestCity + '\n' +
+//                "stateOrProvince = " + stateOrProvince + '\n' +
+//                "country = " + country + '\n' +
+//                "tempC = " + tempC + '\n' +
+//                "feelsLike = " + feelsLike;
     }
 }

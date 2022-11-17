@@ -19,16 +19,20 @@ public class GoodWeatherApplication extends Application {
 
     public static void main(String[] args) {
 
-        //CurrentWeather weather = new CurrentWeather();
-        //System.out.println(weather.toString());
 
-        try {
-            WeatherAPIUtility.getLocalWeatherFromAPI();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+        APIResponse apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+
+        //CurrentWeather weather = apiResponse.getCurrentWeather();
+        System.out.println(apiResponse.getCurrentWeather());
+
+//        try {
+//            WeatherAPIUtility.getLocalWeatherFromAPI();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
 
         launch();
     }
