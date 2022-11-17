@@ -12,12 +12,21 @@ public class GoodWeatherApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(GoodWeatherApplication.class.getResource("good-weather-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 320, 240);
-        stage.setTitle("Hello!");
+        stage.setTitle("Good Weather!");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) {
+
+        try {
+            WeatherAPIUtility.getLocalWeatherFromAPI();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         launch();
     }
 }
