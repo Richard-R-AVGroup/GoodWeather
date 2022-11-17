@@ -5,9 +5,9 @@ import com.google.gson.annotations.SerializedName;
 public class Location {
 
     @SerializedName("long")
-    float longitude;
+    private float longitude;
     @SerializedName("lat")
-    float latitude;
+    private float latitude;
 
     public float getLongitude() {
         return longitude;

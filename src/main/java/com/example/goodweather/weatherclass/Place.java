@@ -2,10 +2,10 @@ package com.example.goodweather.weatherclass;
 
 public class Place {
 
-    String name;
-    String city;
-    String state;
-    String country;
+    private String name;
+    private String city;
+    private String state;
+    private String country;
 
     public String getName() {
         return name;
