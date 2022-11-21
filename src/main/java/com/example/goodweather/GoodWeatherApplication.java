@@ -23,7 +23,7 @@ public class GoodWeatherApplication extends Application {
 
         APIResponse apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
 
-        //CurrentWeather weather = apiResponse.getCurrentWeather();
+        CurrentWeather weather = apiResponse.getCurrentWeather();
         System.out.println(apiResponse.getCurrentWeather());
 
 //        try {
