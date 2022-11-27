@@ -10,8 +10,8 @@ import java.io.IOException;
 public class GoodWeatherApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(GoodWeatherApplication.class.getResource("good-weather-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        FXMLLoader fxmlLoader = new FXMLLoader(GoodWeatherApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Good Weather!");
         stage.setScene(scene);
         stage.show();
@@ -21,10 +21,10 @@ public class GoodWeatherApplication extends Application {
 
 
 
-        APIResponse apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
-
-        CurrentWeather weather = apiResponse.getCurrentWeather();
-        System.out.println(apiResponse.getCurrentWeather());
+//        APIResponse apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+//
+//        CurrentWeather weather = apiResponse.getCurrentWeather();
+//        System.out.println(apiResponse.getCurrentWeather());
 
 //        try {
 //            WeatherAPIUtility.getLocalWeatherFromAPI();

@@ -10,10 +10,10 @@ public class Info {
     private int humidity;
     private String weather;
     @SerializedName("feelslikeC")
-    private int feelsLike;
+    private float feelsLike;
 
-    public int getTempC() {
-        return tempC;
+    public String getTempC() {
+        return String.valueOf(tempC);
     }
 
     public int getWindKPH() {
@@ -28,7 +28,7 @@ public class Info {
         return weather;
     }
 
-    public int getFeelsLike() {
+    public float getFeelsLike() {
         return feelsLike;
     }
 

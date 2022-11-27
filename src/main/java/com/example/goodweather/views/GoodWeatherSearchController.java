@@ -1,0 +1,121 @@
+package com.example.goodweather.views;
+
+import com.example.goodweather.APIResponse;
+import com.example.goodweather.SessionInfo;
+import com.example.goodweather.WeatherAPIUtility;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GoodWeatherSearchController implements Initializable {
+
+    @FXML
+    private Button backButton;
+
+    @FXML
+    private TextField cityInput;
+
+    @FXML
+    private TextField countryInput;
+
+    @FXML
+    private Label locationLabel;
+
+    @FXML
+    private Button refreshButton;
+
+    @FXML
+    private Button searchButton;
+
+    @FXML
+    private Label tempLabel;
+
+    @FXML
+    private ImageView weatherImage;
+
+    @FXML
+    private TextArea weatherTextArea;
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    /**
+     * If there is a valid location entered(not empty), we will read from the file and set the label
+     * The information will be saved to a singleton if needed in the future
+     */
+    @FXML
+    public void getWeather()
+    {
+        try {
+            if (cityInput.getText() != "" && countryInput.getText() != "") {
+
+                //Read the json object from the file
+                APIResponse apiResponse = new APIResponse();
+                WeatherAPIUtility.getLocalWeatherFromAPI(cityInput.getText(), countryInput.getText());
+                apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+
+                //Update the location label
+                locationLabel.textProperty().setValue(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
+                        apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
+                        apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
+
+                //update the temp label
+                tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
+
+                //update the weather information text area
+                weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
+
+                SessionInfo.setCity(cityInput.getText());
+                SessionInfo.setCountry(countryInput.getText());
+            }
+            else
+            {
+                weatherTextArea.setText("Invalid Input, Please Try Again.");
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * If there has been a searched location then call the api again and update the information
+     * @throws IOException
+     * @throws InterruptedException
+     */
+    @FXML
+    public void refreshInfo() throws IOException, InterruptedException {
+
+        if (SessionInfo.getCity() != "" && SessionInfo.getCountry() != "")
+        {
+            //get the information from the API, store, and read the file
+            APIResponse apiResponse;
+            WeatherAPIUtility.getLocalWeatherFromAPI(SessionInfo.getCity(), SessionInfo.getCountry());
+            apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+
+            //set the temp label to the temp
+            tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
+
+            //display weather information
+            weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
+        }
+    }
+
+    @FXML
+    public void mainView(ActionEvent event) throws IOException {
+        SceneChanger.changeScene(event, "home-view.fxml");
+    }
+}

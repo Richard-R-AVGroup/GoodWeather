@@ -1,0 +1,27 @@
+#infoBox
+{
+    -fx-hgap: 20px;
+    -fx-padding: 10px;
+
+    -fx-background-color: skyblue;
+    -fx-background-radius: 20px;
+
+
+    -fx-border-radius: 15px;
+    -fx-border-width: 5px;
+    -fx-border-color: black;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 0, 0);
+}
+
+.text-area .content  {
+    -fx-background-color: transparent;
+}
+
+.text-area .viewport
+{
+    -fx-background-color: transparent;
+}
+
+.text-field{
+
+}

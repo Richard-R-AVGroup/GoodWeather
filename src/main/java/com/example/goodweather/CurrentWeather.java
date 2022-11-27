@@ -14,8 +14,8 @@ public class CurrentWeather {
     private Place place;
 
     //Weather
-    @SerializedName("periods")
-    private Info[] info;
+    @SerializedName("ob")
+    private Info info;
 
     public Location getLocation() {
         return location;
@@ -25,7 +25,7 @@ public class CurrentWeather {
         return place;
     }
 
-    public Info[] getInfo() {
+    public Info getInfo() {
         return info;
     }
 
@@ -35,6 +35,6 @@ public class CurrentWeather {
       return "CurrentWeather:\n" +
                 "Location = " + location.toString() + "\n" +
                 "Place: \n" + place.toString() + "\n" +
-                "Info: \n" + info[0].toString();
+                "Info: \n" + info.toString();
     }
 }

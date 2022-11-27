@@ -8,11 +8,22 @@ public class Place {
     private String country;
 
     public String getName() {
-        return name;
+
+        String firstLetter = name;
+        String temp = "";
+
+        temp = firstLetter.substring(0,1).toUpperCase() + name.substring(1,name.length());
+
+        return temp;
     }
 
     public String getCity() {
-        return city;
+        String firstLetter = city;
+        String temp = "";
+
+        temp = firstLetter.substring(0,1).toUpperCase() + name.substring(1,name.length());
+
+        return temp;
     }
 
     public String getState() {
