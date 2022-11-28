@@ -1,6 +1,7 @@
 package com.example.goodweather.views;
 
 import com.example.goodweather.APIResponse;
+import com.example.goodweather.SessionInfo;
 import com.example.goodweather.WeatherAPIUtility;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -48,14 +49,26 @@ public class GoodWeatherHomeController implements Initializable {
                 APIResponse apiResponse;
                 apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
 
+                SessionInfo.setCity(apiResponse.getCurrentWeather().getPlace().getName());
+                SessionInfo.setCountry(apiResponse.getCurrentWeather().getPlace().getCountry());
+
                 locationLabel.textProperty().setValue(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
                         apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
                         apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
 
                 tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
             }
+            else
+            {
+                return;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void exitProgram()
+    {
+        System.exit(0);
     }
 }

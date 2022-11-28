@@ -19,6 +19,8 @@ import java.util.ResourceBundle;
 
 public class GoodWeatherSearchController implements Initializable {
 
+    boolean loaded;
+
     @FXML
     private Button backButton;
 
@@ -48,7 +50,24 @@ public class GoodWeatherSearchController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        loaded = false;
+        try {
 
+            if(WeatherAPIUtility.checkForSaveFile())
+            {
+                refreshInfo();
+
+            }
+            else
+            {
+                return;
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -99,18 +118,38 @@ public class GoodWeatherSearchController implements Initializable {
     @FXML
     public void refreshInfo() throws IOException, InterruptedException {
 
-        if (SessionInfo.getCity() != "" && SessionInfo.getCountry() != "")
+        if (SessionInfo.getCity() != "" && SessionInfo.getCountry() != "" && loaded == true)
         {
+            getInformation();
+        }
+        if (SessionInfo.getCity() == "" && SessionInfo.getCountry() == "" && loaded == false)
+        {
+            getInformation();
+            loaded = true;
+        }
+    }
+
+    private void getInformation() throws IOException, InterruptedException {
+        if(WeatherAPIUtility.checkForSaveFile()) {
             //get the information from the API, store, and read the file
             APIResponse apiResponse;
             WeatherAPIUtility.getLocalWeatherFromAPI(SessionInfo.getCity(), SessionInfo.getCountry());
             apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+
+            SessionInfo.setCity(apiResponse.getCurrentWeather().getPlace().getName());
+            SessionInfo.setCountry(apiResponse.getCurrentWeather().getPlace().getCountry());
 
             //set the temp label to the temp
             tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
 
             //display weather information
             weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
+
+            locationLabel.setText(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
+                    apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
+                    apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
+
+
         }
     }
 

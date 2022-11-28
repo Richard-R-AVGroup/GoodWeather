@@ -45,7 +45,7 @@
             <Font size="30.0" />
          </font>
       </Button>
-      <Button fx:id="exitButton" mnemonicParsing="false" prefWidth="319.0" style="-fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 3, 3);" text="Exit">
+      <Button fx:id="exitButton" mnemonicParsing="false" onAction="#exitProgram" prefWidth="319.0" style="-fx-background-radius: 40; -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.8), 10, 0, 3, 3);" text="Exit">
          <font>
             <Font size="30.0" />
          </font>
