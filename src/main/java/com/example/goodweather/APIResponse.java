@@ -6,6 +6,8 @@ public class APIResponse {
 
     @SerializedName("response")
     private CurrentWeather currentWeather;
+//    @SerializedName("error")
+//    private Error error;
 
     public CurrentWeather getCurrentWeather() {
         return currentWeather;

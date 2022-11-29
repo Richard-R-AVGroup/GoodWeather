@@ -1,5 +1,7 @@
 package com.example.goodweather.weatherclass;
 
+import java.util.Locale;
+
 public class Place {
 
     private String name;
@@ -26,11 +28,26 @@ public class Place {
         return temp;
     }
 
+    public String getCityFromApi()
+    {
+        String adjusted = "";
+        adjusted = this.city.replace(" ", "").toLowerCase(Locale.ROOT).trim();
+        return adjusted;
+    }
+
+    public String getCountryFromApi()
+    {
+        String adjusted = "";
+        adjusted = this.country.replace(" ", "").toLowerCase(Locale.ROOT).trim();
+        return adjusted;
+    }
+
     public String getState() {
         return state;
     }
 
-    public String getCountry() {
+    public String getCountry()
+    {
         return country;
     }
 

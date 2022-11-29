@@ -26,7 +26,7 @@ public class WeatherAPIUtility {
                 .method("GET", HttpRequest.BodyPublishers.noBody())
                 .build();
         HttpResponse<Path> response = HttpClient.newHttpClient().send(request, HttpResponse.BodyHandlers.ofFile(Paths.get("currentWeather.json")));
-        System.out.println(response.body());
+        System.out.println(request.uri());
     }
 
     public static APIResponse readLocalWeatherFromFile()

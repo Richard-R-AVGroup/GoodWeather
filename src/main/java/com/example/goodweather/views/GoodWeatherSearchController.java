@@ -15,6 +15,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class GoodWeatherSearchController implements Initializable {
@@ -82,8 +83,17 @@ public class GoodWeatherSearchController implements Initializable {
 
                 //Read the json object from the file
                 APIResponse apiResponse = new APIResponse();
+
                 WeatherAPIUtility.getLocalWeatherFromAPI(cityInput.getText(), countryInput.getText());
                 apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
+
+                if(apiResponse == null)
+                {
+                    weatherTextArea.setText("Not a Valid Location, Please Try Again.");
+                }
+
+                SessionInfo.setCity(cityInput.getText());
+                SessionInfo.setCountry(countryInput.getText());
 
                 //Update the location label
                 locationLabel.textProperty().setValue(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
@@ -96,8 +106,6 @@ public class GoodWeatherSearchController implements Initializable {
                 //update the weather information text area
                 weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
 
-                SessionInfo.setCity(cityInput.getText());
-                SessionInfo.setCountry(countryInput.getText());
             }
             else
             {
@@ -117,40 +125,36 @@ public class GoodWeatherSearchController implements Initializable {
      */
     @FXML
     public void refreshInfo() throws IOException, InterruptedException {
-
-        if (SessionInfo.getCity() != "" && SessionInfo.getCountry() != "" && loaded == true)
-        {
-            getInformation();
-        }
-        if (SessionInfo.getCity() == "" && SessionInfo.getCountry() == "" && loaded == false)
-        {
-            getInformation();
-            loaded = true;
-        }
-    }
-
-    private void getInformation() throws IOException, InterruptedException {
         if(WeatherAPIUtility.checkForSaveFile()) {
             //get the information from the API, store, and read the file
             APIResponse apiResponse;
-            WeatherAPIUtility.getLocalWeatherFromAPI(SessionInfo.getCity(), SessionInfo.getCountry());
+            if(SessionInfo.getCountry() != null || SessionInfo.getCity() != null)
+            {
+                WeatherAPIUtility.getLocalWeatherFromAPI(SessionInfo.getCity()
+                        , SessionInfo.getCountry());
+            }
             apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
 
-            SessionInfo.setCity(apiResponse.getCurrentWeather().getPlace().getName());
-            SessionInfo.setCountry(apiResponse.getCurrentWeather().getPlace().getCountry());
+            if(apiResponse != null) {
 
-            //set the temp label to the temp
-            tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
+                //set the temp label to the temp
+                tempLabel.textProperty().setValue(apiResponse.getCurrentWeather().getInfo().getTempC() + "\u00B0");
 
-            //display weather information
-            weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
+                //display weather information
+                weatherTextArea.setText(apiResponse.getCurrentWeather().getInfo().toString());
 
-            locationLabel.setText(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
-                    apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
-                    apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
-
-
+                locationLabel.setText(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
+                        apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
+                        apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
+            }
         }
+    }
+
+    private String scrub(String phrase)
+    {
+        String temp = "";
+        temp = phrase.trim().toLowerCase(Locale.ROOT).replace(" ", "");
+        return temp;
     }
 
     @FXML

@@ -49,9 +49,6 @@ public class GoodWeatherHomeController implements Initializable {
                 APIResponse apiResponse;
                 apiResponse = WeatherAPIUtility.readLocalWeatherFromFile();
 
-                SessionInfo.setCity(apiResponse.getCurrentWeather().getPlace().getName());
-                SessionInfo.setCountry(apiResponse.getCurrentWeather().getPlace().getCountry());
-
                 locationLabel.textProperty().setValue(apiResponse.getCurrentWeather().getPlace().getName() + ", " +
                         apiResponse.getCurrentWeather().getPlace().getState().toUpperCase() + ", " +
                         apiResponse.getCurrentWeather().getPlace().getCountry().toUpperCase());
