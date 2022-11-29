@@ -17,6 +17,6 @@ TODO:
   - Rainy
   - Thunderstorms
   - Clear (Moon)
-  -Cloudy (Moon)
+  - Cloudy (Moon)
   
 [Uses the Aeris Weather API](https://rapidapi.com/aerisweather-aerisweather/api/aerisweather1)
